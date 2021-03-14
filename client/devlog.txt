@@ -1,0 +1,16 @@
+NoteWorthy
+NoteBoard
+TakeNotes
+eNotes
+notable
+NoteMe
+type and take notes
+relax and take notes
+typeNotes
+
+setup:
+1. npm run server-install
+2. npm run client-install
+
+run:
+npm run dev // it will run server.js and than cd to /client and run react //check package.json scripts
