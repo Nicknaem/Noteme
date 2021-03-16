@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import notes from '../notes';
+const axios = require('axios')
+//import notes from '../notes';
 
 function AddNote(props){
 
@@ -20,20 +21,27 @@ function AddNote(props){
     }
 
     function submitNote(event){
+        event.preventDefault();
+
+        axios.post('/save', note)
+          .then(function (response) {
+            console.log(response);
+          })
+
         props.onAdd(note)
         setNote({
             title: "",
             content: ""
         })
-        event.preventDefault();
+        
     }
 
     return (
         <div>
-            <form>
+            <form >
                 <input value={note.title} onChange={handleChange} name='title' placeholder='Title' />
-                <textarea value={note.content} onChange={handleChange} name="content" placeholder="Relax and take notes ..." cols="30" rows="3"></textarea>
-                <button onClick={submitNote}>Add</button>
+                <textarea value={note.content} onChange={handleChange} name='content' placeholder="Relax and take notes ..." cols="30" rows="3"></textarea>
+                <button type="submit" onClick={submitNote}>Add</button>
             </form>
         </div>
     );
