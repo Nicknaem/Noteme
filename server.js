@@ -5,6 +5,7 @@ console.log('server is running, catch me if you can');
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 var app = express();
 var server = app.listen(5000, () => console.log("listening to you"));
 app.use(express.json({extended: true}));
@@ -32,14 +33,22 @@ app.post("/save",function(request,response){ //order of req and res does matter!
 });
 
 app.get('/pullNotes', (req,res) => {
-  console.log("sending notes to client:")
+  console.log("sending notes to client...")
   
   Note.find(function(err,notes){
     res.send(notes)
-  })
+  });
   //res.send([{title:"gamovushvi",content:"dzma"},{title:"meore",content:"dzma"}])
 })
 
+app.post("/delete",function(request,response){
+  console.log("deleting note: \n");
+  console.log(typeof(request.body._id))
+  Note.deleteOne({_id: request.body._id},(err)=>{
+    console.log(err);
+  });
+
+});
 
 //==============================Mongoose==================================
 

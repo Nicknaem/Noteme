@@ -10,28 +10,41 @@ const axios = require('axios')
 
 function App(){
     
-    var pulledNotes = [];
+   
     useEffect(() => {
+          var pulledNotes = [];
+
           axios.get('/pullNotes')
           .then(function (response) {
-            console.log("es movida dzma: typeof"+typeof(response.data)+"\n");
+            console.log("es movida dzma: type: "+typeof(response.data)+"\n");
             console.log(response.data);
             pulledNotes = response.data;
-            setNotes(pulledNotes);
+            setNotes(prevNotes => {
+                return [...prevNotes,...pulledNotes];
+            });
           })
-    },[]);
+    },[]); 
 
     const [notes,setNotes]= useState([]);
+    //setNotes([{}]);
     function pullNote(newNote){
+        //amdros ID ar aqvs da tuki daamateb da washli bazashi mainc darcheba
         setNotes(prevNotes =>{
             return [...prevNotes, newNote];
         })
     }
+    console.log("hello");
 
     function deleteNote(id){
+
+        axios.post('/delete', {_id: id})
+          .then(function (response) {
+            console.log(response);
+          })
+
         setNotes(prevNotes => {
-            return prevNotes.filter((entryNote, index) => {
-                return index !== id;
+            return prevNotes.filter((entryNote) => {
+                return entryNote._id !== id;
             })
         })
     }
@@ -44,7 +57,7 @@ function App(){
             return (
             <Note
                 key={index}
-                id={index}
+                id={entryNote._id}
                 title={entryNote.title}
                 content={entryNote.content}
                 onDelete={deleteNote}

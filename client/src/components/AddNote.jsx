@@ -29,6 +29,8 @@ function AddNote(props){
           })
 
         props.onAdd(note)
+
+        //clear input fields after adding note
         setNote({
             title: "",
             content: ""
