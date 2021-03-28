@@ -59,6 +59,11 @@ const noteSchema = new mongoose.Schema ({
   title: String,
   content: String,
   color: String,
+  /*
+  color: {
+    type:String,
+    default: 'white'
+  }, */
   tags: [String]
 });
 
