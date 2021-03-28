@@ -13,14 +13,14 @@ function App(){
    
     useEffect(() => {
           var pulledNotes = [];
-
+          //pulling notes from db
           axios.get('/pullNotes')
           .then(function (response) {
             console.log("es movida dzma: type: "+typeof(response.data)+"\n");
             console.log(response.data);
             pulledNotes = response.data;
             setNotes(prevNotes => {
-                return [...prevNotes,...pulledNotes];
+                return [...pulledNotes];
             });
           })
     },[]); 
@@ -28,10 +28,32 @@ function App(){
     const [notes,setNotes]= useState([]);
     //setNotes([{}]);
     function pullNote(newNote){
+
+        axios.post('/save', newNote)
+          .then(function (response) {
+            console.log(response);
+          })
+
+        var pulledNotes = [];
+        //pulling notes from db
+        axios.get('/pullNotes')
+        .then(function (response) {
+        console.log("es movida dzma: type: "+typeof(response.data)+"\n");
+        console.log(response.data);
+        pulledNotes = response.data;
+        setNotes(prevNotes => {
+            return [...pulledNotes];
+        });
+        })
+
+
         //amdros ID ar aqvs da tuki daamateb da washli bazashi mainc darcheba
+        //sanam bazastan gveqneboda kavshiri ase xdeboda
+        /*
         setNotes(prevNotes =>{
             return [...prevNotes, newNote];
         })
+        */
     }
     console.log("hello");
 

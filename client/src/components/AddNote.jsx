@@ -23,11 +23,6 @@ function AddNote(props){
     function submitNote(event){
         event.preventDefault();
 
-        axios.post('/save', note)
-          .then(function (response) {
-            console.log(response);
-          })
-
         props.onAdd(note)
 
         //clear input fields after adding note
@@ -35,7 +30,6 @@ function AddNote(props){
             title: "",
             content: ""
         })
-        
     }
 
     return (

@@ -57,16 +57,18 @@ mongoose.connect("mongodb://localhost:27017/notemeDB", {useNewUrlParser: true, u
 //creating schema for the collection
 const noteSchema = new mongoose.Schema ({
   title: String,
-  content: String
+  content: String,
+  color: String,
+  tags: [String]
 });
 
-//creating model: telling what collection we want to have that schema
+//creating model: telling mongoose, on what collection we want to have that schema
 const Note = mongoose.model('Note', noteSchema);
 
 //creating document: adding single record in Note collection based on its schema
-const note = new Note ({
-  title:"second note",
-  content:"I dont really understand, first note was added while mongod wasnot running"
+const exampleNote = new Note ({
+  title:"example note",
+  content:"example note content"
 });
 
-//note.save();
+//exampleNote.save();
