@@ -118,7 +118,9 @@ textarea {
  
  }
  
-
+.halfWidth{
+  display:inline-block !important;
+}
 
 form.create-note {
   position: relative;

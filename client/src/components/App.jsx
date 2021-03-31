@@ -43,9 +43,7 @@ function App(){
         console.log("es movida dzma: type: "+typeof(response.data)+"\n");
         console.log(response.data);
         pulledNotes = response.data;
-        setNotes(prevNotes => {
-            return [...pulledNotes];
-        });
+            setNotes(pulledNotes);
         })
 
 
@@ -59,6 +57,24 @@ function App(){
     }
     console.log("hello");
 
+    function deleteNoteFromArray(id) {
+        setNotes(prevNotes => {
+            return prevNotes.filter((entryNote) => {
+                return entryNote._id !== id;
+            })
+        })
+    }
+
+    function fade(id) {
+        setNotes(prevNotes => {
+            console.info(prevNotes);
+            prevNotes.forEach(function (item) {
+                if (item._id === id) item.fade = true;
+            }) 
+            var note = [...prevNotes]; 
+            return note;
+        });
+    }
     function deleteNote(id){
 
         axios.post('/delete', {_id: id})
@@ -66,6 +82,7 @@ function App(){
               console.log(response);
             if(response.status == 200){
                 //find note instance by id and changei its visibility state
+                fade(id);
             }
           })
 
@@ -85,17 +102,20 @@ function App(){
     <div>
         <Header/>
         <AddNote onAdd={pullNote}/>
-        {notes.map((entryNote, index) => {
-            return (
-            <Note
-                key={index}
-                id={entryNote._id}
-                title={entryNote.title}
-                content={entryNote.content}
-                onDelete={deleteNote}
-            />
-            );
-        })
+        {
+            notes.map((entryNote, index) => {
+                return (
+                <Note
+                    key={entryNote._id}
+                    id={entryNote._id}
+                    title={entryNote.title}
+                    content={entryNote.content}
+                    onDelete={deleteNote}
+                    fade={entryNote.fade ? true : false}
+                    deleteNoteFromArray={deleteNoteFromArray}
+                />
+                );
+            })
         }
 
         <Footer/>
