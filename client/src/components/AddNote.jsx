@@ -52,7 +52,7 @@ function AddNote(props){
                 {/* or isExpanded && input  */}
                 {/* or isExpanded ? input : null  transitions doesnot work in this case because "<input>" is not rendered */}
                 <Collapse in={isExpanded}>
-                    <input 
+                    <input onFocus="this.placeholder = ''" className='note-title'
                         value={note.title} 
                         onChange={handleChange} 
                         name='title' 

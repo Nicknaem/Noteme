@@ -3,18 +3,18 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { Zoom } from '@material-ui/core';
 
 function Note(props){
-    const [noteVisible, setVisible] = useState(true);
 
+    const [isVisible, setVisible] = useState(true);
     function handleClick(){
-        setTimeout(()=>{
-            console.log();
-            props.onDelete(props.id)
-        }, 200);
-       
+//deleting=changing note visibility state without checking server responce
+        setVisible(false);
+        props.onDelete(props.id)
+//setTimeout(()=>{ }, 200);
+
     }
     
     return(
-    <Zoom in={true} timeout={300}>
+    <Zoom in={isVisible} timeout={300}>
         <div className="note">
             <h1>{props.title}</h1>
             <p>{props.content}</p>

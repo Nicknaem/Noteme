@@ -27,6 +27,8 @@ function App(){
 
     const [notes,setNotes]= useState([]);
     //setNotes([{}]);
+    
+
     function pullNote(newNote){
 
         axios.post('/save', newNote)
@@ -60,17 +62,25 @@ function App(){
     function deleteNote(id){
 
         axios.post('/delete', {_id: id})
-          .then(function (response) {
-            console.log(response);
+          .then( (response) => {
+              console.log(response);
+            if(response.status == 200){
+                //find note instance by id and changei its visibility state
+            }
           })
 
+
+          
+        /*
         setNotes(prevNotes => {
             return prevNotes.filter((entryNote) => {
                 return entryNote._id !== id;
             })
         })
+        */
     }
 
+    
     return(
     <div>
         <Header/>

@@ -56,6 +56,9 @@ footer p {
   word-wrap: break-word;
 }
 
+.note-title:focus{
+  font-weight: bold;
+}
 .note button {
   position: relative;
   float: right;

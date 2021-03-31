@@ -43,11 +43,10 @@ app.get('/pullNotes', (req,res) => {
 
 app.post("/delete",function(request,response){
   console.log("deleting note: \n");
-  console.log(typeof(request.body._id))
   Note.deleteOne({_id: request.body._id},(err)=>{
     console.log(err);
   });
-
+  response.send('success');
 });
 
 //==============================Mongoose==================================
